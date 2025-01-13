@@ -1,25 +1,20 @@
-// CSVReader.js
 import React, { useState, useRef } from 'react';
 import Papa from 'papaparse';
-
-// Composants d'icônes
-const CheckCircleIcon = (props) => {
-  const { style, ...other } = props;
-  return (
-    <span {...other} style={{ color: '#4caf50', marginRight: '8px', ...style }}>
-      ✔️
-    </span>
-  );
-};
-
-const ErrorIcon = (props) => {
-  const { style, ...other } = props;
-  return (
-    <span {...other} style={{ color: '#f44336', marginRight: '8px', ...style }}>
-      ❌
-    </span>
-  );
-};
+import {
+  Box,
+  Button,
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Paper,
+} from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 
 // Fonction de validation pour les numéros de téléphone
 const isValidPhoneNumber = (phoneNumber) => {
@@ -32,8 +27,6 @@ const isValidPhoneNumber = (phoneNumber) => {
 function CSVReader() {
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
-  
-  // Référence vers l'élément input
   const fileInputRef = useRef(null);
 
   const handleFileUpload = (event) => {
@@ -48,100 +41,60 @@ function CSVReader() {
           setColumns(parsedData.length > 0 ? Object.keys(parsedData[0]) : []);
         },
         error: function (error) {
-          console.error("Erreur lors du parsing du CSV:", error);
+          console.error('Erreur lors du parsing du CSV:', error);
         },
       });
     }
   };
 
-  const containerStyle = {
-    maxWidth: '960px',
-    margin: '0 auto',
-    marginTop: '40px',
-    backgroundColor: '#fff',
-    padding: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    borderRadius: '8px',
-  };
-
-  const buttonStyle = {
-    padding: '10px 20px',
-    fontSize: '16px',
-    textTransform: 'none',
-    boxShadow: '0px 2px 4px rgba(0,0,0,0.2)',
-    backgroundColor: '#1976d2',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  };
-
-  const buttonHoverStyle = {
-    backgroundColor: '#005bb5',
-    transform: 'scale(1.05)',
-    transition: 'transform 0.2s, background-color 0.2s',
-  };
-
   return (
-    <div style={{ backgroundColor: '#f4f6f8', minHeight: '100vh', padding: '20px' }}>
-      <div style={containerStyle}>
-        <h4 style={{ textAlign: 'center', color: '#1976d2' }}>
+    <Box sx={{ bgcolor: '#f4f6f8', minHeight: '100vh', p: 4 }}>
+      <Container maxWidth="md" sx={{ bgcolor: '#fff', p: 4, borderRadius: 2, boxShadow: 3 }}>
+        <Typography variant="h4" align="center" color="primary" gutterBottom>
           Lecteur de fichiers CSV
-        </h4>
+        </Typography>
 
         {/* Champ fichier caché et bouton déclencheur */}
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '16px 0' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
           <input
             ref={fileInputRef}
-            style={{ display: 'none' }}
-            accept=".csv"
             type="file"
+            accept=".csv"
+            style={{ display: 'none' }}
             onChange={handleFileUpload}
           />
-          <button
-            style={buttonStyle}
+          <Button
+            variant="contained"
+            color="primary"
             onClick={() => fileInputRef.current && fileInputRef.current.click()}
-            onMouseOver={(e) => Object.assign(e.target.style, buttonHoverStyle)}
-            onMouseOut={(e) =>
-              Object.assign(e.target.style, {
-                backgroundColor: '#1976d2',
-                transform: 'scale(1)',
-              })
-            }
           >
             Choisir un fichier CSV
-          </button>
-        </div>
+          </Button>
+        </Box>
 
         {data.length > 0 && (
-          <div style={{ overflowX: 'auto', marginTop: '24px' }}>
-            <table style={{ width: '100%', minWidth: '650px', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
+          <TableContainer component={Paper} sx={{ mt: 3 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
                   {columns.map((col) => (
-                    <th
+                    <TableCell
                       key={col}
-                      style={{
-                        fontWeight: 'bold',
-                        backgroundColor: '#1976d2',
-                        color: '#fff',
-                        textAlign: 'center',
-                        padding: '8px',
-                        border: '1px solid #ddd',
-                      }}
+                      align="center"
+                      sx={{ fontWeight: 'bold', bgcolor: 'primary.main', color: '#fff' }}
                     >
                       {col}
-                    </th>
+                    </TableCell>
                   ))}
-                </tr>
-              </thead>
-              <tbody>
+                </TableRow>
+              </TableHead>
+              <TableBody>
                 {data.map((row, rowIndex) => (
-                  <tr
+                  <TableRow
                     key={rowIndex}
-                    style={{ transition: 'background-color 0.3s' }}
-                    onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#f0f0f0')}
-                    onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                    sx={{
+                      '&:hover': { bgcolor: 'grey.200' },
+                    }}
                   >
                     {columns.map((col) => {
                       const cellValue = row[col];
@@ -151,42 +104,42 @@ function CSVReader() {
                       if (col.toLowerCase().includes('phone') || col.toLowerCase().includes('tel')) {
                         if (cellValue) {
                           if (isValidPhoneNumber(cellValue)) {
-                            cellColor = '#4caf50'; // Vert
-                            Icon = <CheckCircleIcon style={{ color: cellColor }} />;
+                            cellColor = 'success.main';
+                            Icon = <CheckCircleIcon color="success" sx={{ mr: 1 }} />;
                           } else {
-                            cellColor = '#f44336'; // Rouge
-                            Icon = <ErrorIcon style={{ color: cellColor }} />;
+                            cellColor = 'error.main';
+                            Icon = <ErrorIcon color="error" sx={{ mr: 1 }} />;
                           }
                         } else {
-                          cellColor = '#bdbdbd'; // Gris
+                          cellColor = 'grey.500';
                         }
                       }
 
                       return (
-                        <td
+                        <TableCell
                           key={col}
-                          style={{
-                            backgroundColor: cellColor,
-                            color: cellColor !== 'inherit' ? '#fff' : '#000',
-                            textAlign: 'center',
-                            padding: '8px',
-                            border: '1px solid #ddd',
-                            transition: 'background-color 0.3s',
+                          align="center"
+                          sx={{
+                            bgcolor: cellColor !== 'inherit' ? cellColor : 'inherit',
+                            color: cellColor !== 'inherit' ? '#fff' : 'inherit',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                           }}
                         >
                           {Icon}
                           {cellValue || 'N/A'}
-                        </td>
+                        </TableCell>
                       );
                     })}
-                  </tr>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </TableBody>
+            </Table>
+          </TableContainer>
         )}
-      </div>
-    </div>
+      </Container>
+    </Box>
   );
 }
 
