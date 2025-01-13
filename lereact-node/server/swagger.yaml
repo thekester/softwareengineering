@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: API CSV Manager
+  description: API pour lister et lire des fichiers CSV
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+paths:
+  /api/files:
+    get:
+      summary: Liste les fichiers CSV disponibles
+      responses:
+        '200':
+          description: Liste des fichiers CSV
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '500':
+          description: Erreur lors de la lecture des fichiers
+  /api/data:
+    get:
+      summary: Récupère les données d'un fichier CSV spécifique
+      parameters:
+        - name: filename
+          in: query
+          description: Nom du fichier CSV à lire
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Données du fichier CSV
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '500':
+          description: Erreur lors de la lecture du fichier
+  /api/upload:
+    post:
+      summary: Envoyer un fichier CSV pour traitement
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Données du fichier CSV traitées
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '400':
+          description: Aucun fichier envoyé
+        '500':
+          description: Erreur lors du traitement du fichier CSV
+

@@ -1,3 +1,4 @@
+// CSVReader.js
 import React, { useState, useRef } from 'react';
 import Papa from 'papaparse';
 
@@ -28,7 +29,7 @@ const isValidPhoneNumber = (phoneNumber) => {
   return phoneRegex.test(cleanedNumber);
 };
 
-function App() {
+function CSVReader() {
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
   
@@ -189,4 +190,4 @@ function App() {
   );
 }
 
-export default App;
+export default CSVReader;

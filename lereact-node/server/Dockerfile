@@ -1,18 +1,19 @@
-# Utilise une image Node officielle
-FROM node:18-alpine
+# Étape 1 : Utilisation de Node.js pour le backend
+FROM node:23-alpine
 
-# Crée et utilise un répertoire de travail
+# Définir le répertoire de travail
 WORKDIR /app
 
-# Copie package.json et installe les dépendances
-COPY package.json ./
-RUN npm install
+# Copier uniquement les fichiers nécessaires pour installer les dépendances
+COPY package.json package-lock.json ./
 
-# Copie le reste des fichiers
+# Installer les dépendances
+RUN npm install --legacy-peer-deps
+
+# Copier le reste des fichiers du serveur
 COPY . .
 
-# Expose le port
+# Exposer le port 3001 pour le serveur
 EXPOSE 3001
 
-# Commande de démarrage
 CMD ["npm", "start"]

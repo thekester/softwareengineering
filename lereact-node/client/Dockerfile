@@ -1,25 +1,31 @@
-# Utilise une image Node officielle pour builder l'app React
-FROM node:18-alpine as build
+# Étape 1 : Construction de l'application React avec Node.js
+FROM node:23-alpine as build
 
 WORKDIR /app
 
-# Copie package.json et installe les dépendances
-COPY package.json ./
-RUN npm install
+# Copier uniquement les fichiers nécessaires pour installer les dépendances
+COPY package.json package-lock.json ./
 
-# Copie le reste du code et build l'application
+# Installer les dépendances
+RUN npm install --legacy-peer-deps
+
+# Copier le reste des fichiers du projet
 COPY . .
 
-# Définir la variable d'environnement pour utiliser le legacy provider
+# Transpiler le projet avec Babel
 ENV NODE_OPTIONS=--openssl-legacy-provider
-
 RUN npm run build
 
-# Utilise un serveur nginx pour servir les fichiers statiques buildés
+# Étape 2 : Utilisation de Nginx pour servir les fichiers statiques
 FROM nginx:alpine
+
+# Copier les fichiers générés par le build
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose le port par défaut de nginx
+# Ajouter une configuration personnalisée pour gérer le routage React
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Exposer le port 80 pour le client
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
