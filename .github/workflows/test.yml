@@ -1,0 +1,32 @@
+name: Run Tests
+
+on:
+  push: # Exécute le workflow pour tout `push`
+    branches:
+      - '**' # Toutes les branches
+  pull_request: # Exécute le workflow pour toutes les pull requests
+    branches:
+      - '**' # Toutes les branches
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Vérifie le code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Installe Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Installe les dépendances
+    - name: Install dependencies
+      run: npm install
+
+    # Exécute les tests
+    - name: Run tests
+      run: npm test
