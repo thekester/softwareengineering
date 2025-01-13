@@ -1,12 +1,12 @@
 name: Run Tests
 
 on:
-  push: # Exécute le workflow pour tout `push`
+  push:
     branches:
-      - '**' # Toutes les branches
-  pull_request: # Exécute le workflow pour toutes les pull requests
+      - '**'
+  pull_request:
     branches:
-      - '**' # Toutes les branches
+      - '**'
 
 jobs:
   test:
@@ -23,10 +23,12 @@ jobs:
       with:
         node-version: '18'
 
-    # Installe les dépendances
+    # Installe les dépendances dans le sous-dossier `katatel`
     - name: Install dependencies
+      working-directory: ./katatel
       run: npm install
 
-    # Exécute les tests
+    # Exécute les tests dans le sous-dossier `katatel`
     - name: Run tests
+      working-directory: ./katatel
       run: npm test
