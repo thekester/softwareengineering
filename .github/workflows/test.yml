@@ -1,0 +1,34 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+
+    steps:
+    # Vérifie le code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Installe Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Installe les dépendances dans le sous-dossier `katatel`
+    - name: Install dependencies
+      working-directory: ./katatel
+      run: npm install
+
+    # Exécute les tests dans le sous-dossier `katatel`
+    - name: Run tests
+      working-directory: ./katatel
+      run: npm test
