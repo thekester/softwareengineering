@@ -19,6 +19,11 @@ Add my practical exercises from the software engineering course.
 
 - React client application development.
 
+```bash
+cd lereact-node
+docker-compose up --build
+```
+
 ### Uncertainties in Telephone Number Handling
 
 - Improving telephone number validation.
