@@ -4,8 +4,6 @@ from exoObserver.Capteur import Capteur
 from exoObserver.IObserverSpeed import IObserverSpeed
 from exoObserver.TableauDeBord import TableauDeBord
 
-
-
 # Observateur fictif pour les tests
 class DummyObserver(IObserverSpeed):
     def __init__(self):

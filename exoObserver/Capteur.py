@@ -1,6 +1,7 @@
 from typing import List
-from ISubscriberSpeed import ISubscriberSpeed
-from IObserverSpeed import IObserverSpeed
+from .ISubscriberSpeed import ISubscriberSpeed
+from .IObserverSpeed import IObserverSpeed
+
 
 class Capteur(ISubscriberSpeed):
     def __init__(self) -> None:
