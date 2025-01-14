@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "test": "react-scripts test --watchAll=false"
   },
   "devDependencies": {
     "@babel/plugin-proposal-logical-assignment-operators": "^7.20.7"

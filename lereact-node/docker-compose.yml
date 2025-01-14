@@ -4,7 +4,7 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - ./server/data.csv:/app/data.csv
+      - ./server/data:/app/data
     environment:
       NODE_ENV: production
     command: ["npm", "start"]
@@ -15,4 +15,4 @@ services:
       - "3000:80"
     depends_on:
       - server
-    command: ["npm", "run", "start"] # Assurez-vous que le script 'start' est correct
+    command: ["npm", "run", "start"]

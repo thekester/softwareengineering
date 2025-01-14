@@ -13,7 +13,11 @@ RUN npm install --legacy-peer-deps
 # Copier le reste des fichiers du serveur
 COPY . .
 
+# Exécuter les tests
+RUN npm test
+
 # Exposer le port 3001 pour le serveur
 EXPOSE 3001
 
+# Commande de démarrage
 CMD ["npm", "start"]
