@@ -1,3 +1,5 @@
+package javatp;
+
 class Chat extends Felin {
 
     @Override

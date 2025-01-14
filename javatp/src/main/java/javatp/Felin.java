@@ -1,5 +1,6 @@
-public abstract class Felin {
+package javatp;
 
+public abstract class Felin {
     public void boire() {
         System.out.println("lap");
     }
