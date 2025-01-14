@@ -1,8 +1,11 @@
+# exoObserver/main.py
+import logging
 from .Capteur import Capteur
 from .Subscriber import Subscriber
 from .TableauDeBord import TableauDeBord
 
 def main():
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
     capteur = Capteur()
 
     abonne1 = Subscriber("Abonné 1")
