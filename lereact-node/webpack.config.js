@@ -17,13 +17,14 @@ module.exports = {
         },
       },
     ],
+    // Ajouter noParse pour ignorer le parsing de Radio.js, optionnel
+    noParse: /@mui\/material\/Radio\/Radio\.js/,
   },
   resolve: {
     extensions: ['.js', '.jsx'], // Extensions à gérer
     alias: {
-      '@mui/material/useLazyRipple': false, 
-      // Bien que IgnorePlugin ignore Radio, on peut aussi définir un alias si besoin
-      '@mui/material/Radio': false,  
+      '@mui/material/useLazyRipple': false, // Ignorer ce module
+      '@mui/material/Radio': path.resolve(__dirname, 'emptyModule.js'),  // Rediriger vers un module vide
     },
   },
   plugins: [
@@ -32,5 +33,5 @@ module.exports = {
     }),
   ],
   devtool: 'source-map', // Pour faciliter le débogage
-  mode: 'production', // Ou 'development' selon vos besoins
+  mode: 'production', // Changez en 'development' pour du développement
 };
