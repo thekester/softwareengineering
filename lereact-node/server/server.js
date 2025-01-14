@@ -19,25 +19,37 @@ app.use(express.json());
 // Middleware multer pour traiter les fichiers envoyés dans les requêtes POST
 const upload = multer({ storage: multer.memoryStorage() });
 
-// Endpoint pour afficher Swagger UI
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// Servir Swagger UI sur une route dédiée
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Endpoint pour lister tous les fichiers CSV dans le dossier data
-app.get('/api/files', (req, res) => {
-  fs.readdir(csvDir, (err, files) => {
-    if (err) {
-      return res.status(500).json({ error: 'Erreur lors de la lecture des fichiers CSV.' });
-    }
+/**
+ * Endpoint pour lister tous les fichiers CSV dans le dossier data
+ */
+app.get('/api/files', async (req, res) => {
+  try {
+    // Vérifier que le répertoire existe
+    await fs.promises.access(csvDir, fs.constants.R_OK);
+    const files = await fs.promises.readdir(csvDir);
     const csvFiles = files.filter(file => file.endsWith('.csv'));
     res.json(csvFiles);
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur lors de la lecture des fichiers CSV.' });
+  }
 });
 
-// Endpoint pour lire un fichier CSV spécifique et renvoyer ses données
+/**
+ * Endpoint pour lire un fichier CSV spécifique et renvoyer ses données
+ */
 app.get('/api/data', async (req, res) => {
   try {
-    const filename = req.query.filename || 'data.csv'; // Nom du fichier passé en paramètre ou par défaut
+    // Utilisation de path.basename pour éviter le path traversal
+    const filename = path.basename(req.query.filename || 'data.csv');
     const filePath = path.join(csvDir, filename);
+    
+    // Vérifier si le fichier existe avant lecture
+    await fs.promises.access(filePath, fs.constants.R_OK);
+    
     const data = await readCSV(filePath);
     const processedData = data.map(item => {
       if (item.phone) {
@@ -52,16 +64,17 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
-// Nouveau endpoint pour recevoir un fichier CSV dans une requête POST
+/**
+ * Nouveau endpoint pour recevoir un fichier CSV dans une requête POST
+ */
 app.post('/api/upload', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'Aucun fichier envoyé.' });
     }
 
-    // Lire et traiter le fichier CSV directement à partir du buffer
     const csvContent = req.file.buffer.toString('utf-8');
-    const data = await readCSV(csvContent, true); // Adapter readCSV pour supporter le contenu brut
+    const data = await readCSV(csvContent, true);
     const processedData = data.map(item => {
       if (item.phone) {
         item.phone = item.phone.replace(/\D/g, '');
@@ -76,7 +89,13 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Serveur Node écoute sur le port ${port}`);
-  console.log(`Swagger UI disponible sur http://localhost:${port}/api-docs`);
-});
+// Démarrage du serveur uniquement si ce fichier est exécuté directement
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Serveur Node écoute sur le port ${port}`);
+    console.log(`Swagger UI disponible sur http://localhost:${port}/api-docs`);
+  });
+}
+
+// Exporter l'application pour les tests ou une utilisation en tant que module
+module.exports = app;

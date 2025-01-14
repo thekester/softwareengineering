@@ -1,1 +1,1 @@
-subscribe()
+subscribe(IObserver)
