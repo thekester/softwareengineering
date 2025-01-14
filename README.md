@@ -21,7 +21,7 @@ This repository includes:
 - A **Node.js** backend handling CSV file operations and API functionalities.
 - A **React** frontend that validates phone numbers and processes CSV files.
 - Python implementations of design patterns and validation tools.
-- Comprehensive tests for backend, frontend, and Python scripts.
+- Comprehensive tests for backend, frontend, and Python scripts, including the use of **mock-based tests** for enhanced flexibility and robustness.
 
 ---
 
@@ -44,12 +44,16 @@ This repository includes:
 
 ### `exoObserver`
 - **Description**: Implements the Observer design pattern in Python.
+- **Highlights**:
+  - Demonstrates the classic Observer pattern using `Capteur`, `Subscriber`, and `TableauDeBord` classes.
+  - Integrates **mock-based tests** to simulate observer behaviors and ensure error resilience.
 - **Main Files**:
   - `Capteur.py`: A class that notifies observers when the speed changes.
   - `Subscriber.py`: A subscriber that reacts to speed changes.
   - `TableauDeBord.py`: Maintains a history of speed changes.
   - `main.py`: Entry point demonstrating the pattern.
-  - `test_exoObserver.py`: Unit tests for the Observer pattern implementation.
+  - `test_exoObserver.py`: Unit tests for core functionality.
+  - `test_exoObserver_mocks.py`: Mock tests for verifying notification behaviors and exception handling.
 
 ### `katatel`
 - **Description**: Focuses on phone number validation in Node.js and Python.
@@ -144,12 +148,13 @@ npm test
 
 ## Improvements & Notes
 
-- Added **comprehensive tests** for phone number validation.
+- Added **comprehensive tests**, including **mock-based tests** for Python components (exoObserver).
 - Enhanced **CSV file handling** with robust error handling.
 - Configured **Docker** for seamless development and deployment.
 - Integrated **GitHub Actions** for continuous integration.
 - Improved Python Observer pattern to include robust testing and clear examples.
 - Added detailed Swagger documentation for API endpoints.
+- Introduced **modern testing practices** (e.g., mocks and error simulations) to ensure system reliability.
 
 ---
 
