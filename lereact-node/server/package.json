@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js"
+        "start": "node server.js",
+        "test": "jest"
     },
     "dependencies": {
         "csv-parser": "^3.0.0",
@@ -11,5 +12,9 @@
         "multer": "^1.4.5-lts.1",
         "swagger-ui-express": "^5.0.1",
         "yamljs": "^0.3.0"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "supertest": "^7.0.0"
     }
 }
