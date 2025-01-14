@@ -131,5 +131,8 @@ dist
 
 file_contents.txt
 
+__pycache__/
 __pycache__
-exoObserver.egg-info
+exoObserver.egg-info/
+.pytest_cache/
+.pytest_cache
