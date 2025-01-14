@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 file_contents.txt
+
+__pycache__

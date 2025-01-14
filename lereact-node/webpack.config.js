@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -20,10 +21,16 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'], // Extensions à gérer
     alias: {
-        '@mui/material/useLazyRipple': false, // Ignorer ce module
-        '@mui/material/Radio': false,  // Remplace le module Radio par un module vide
+      '@mui/material/useLazyRipple': false, 
+      // Bien que IgnorePlugin ignore Radio, on peut aussi définir un alias si besoin
+      '@mui/material/Radio': false,  
     },
   },
+  plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^@mui\/material\/Radio$/,
+    }),
+  ],
   devtool: 'source-map', // Pour faciliter le débogage
-  mode: 'production', // Changez en 'development' pour du développement
+  mode: 'production', // Ou 'development' selon vos besoins
 };
