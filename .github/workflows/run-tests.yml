@@ -1,0 +1,55 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  frontend:
+    runs-on: ubuntu-24.04
+    steps:
+    # Vérifie le code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Installe Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '23'
+
+    # Installe les dépendances et construit le front-end
+    - name: Install and Build Frontend
+      working-directory: ./katatel
+      run: |
+        npm install --legacy-peer-deps
+        npm run build
+
+    # Vérifie la qualité du code avec des tests
+    - name: Run Frontend Tests
+      working-directory: ./katatel
+      run: npm test
+
+  backend:
+    runs-on: ubuntu-24.04
+    steps:
+    # Vérifie le code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Installe Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '23'
+
+    # Installe les dépendances et démarre les tests pour le back-end
+    - name: Install Backend Dependencies
+      working-directory: ./backend
+      run: |
+        npm install --legacy-peer-deps
+        npm test
