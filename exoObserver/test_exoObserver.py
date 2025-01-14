@@ -1,7 +1,12 @@
 import pytest
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from Capteur import Capteur
 from IObserverSpeed import IObserverSpeed
 from TableauDeBord import TableauDeBord
+
 
 # Observateur fictif pour les tests
 class DummyObserver(IObserverSpeed):
