@@ -1,16 +1,9 @@
 import pytest
-import sys
-import os
 
-# Résoudre dynamiquement le chemin d'accès au répertoire contenant les modules
-current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.abspath(os.path.join(current_dir, '..'))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
+from exoObserver.Capteur import Capteur
+from exoObserver.IObserverSpeed import IObserverSpeed
+from exoObserver.TableauDeBord import TableauDeBord
 
-from Capteur import Capteur
-from IObserverSpeed import IObserverSpeed
-from TableauDeBord import TableauDeBord
 
 
 # Observateur fictif pour les tests
