@@ -22,11 +22,11 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies for server
-        working-directory: ./server
+        working-directory: ./lereact-node/server
         run: npm install --legacy-peer-deps
 
       - name: Run tests for server
-        working-directory: ./server
+        working-directory: ./lereact-node/server
         run: npm test
 
   client:
@@ -42,13 +42,13 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies for client
-        working-directory: ./client
+        working-directory: ./lereact-node/client
         run: npm install --legacy-peer-deps
 
       - name: Build client
-        working-directory: ./client
+        working-directory: ./lereact-node/client
         run: npm run build
 
       - name: Run tests for client
-        working-directory: ./client
+        working-directory: ./lereact-node/client
         run: npm test
