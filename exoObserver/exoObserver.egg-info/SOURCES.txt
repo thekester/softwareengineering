@@ -1,7 +1,0 @@
-setup.py
-exoObserver.egg-info/PKG-INFO
-exoObserver.egg-info/SOURCES.txt
-exoObserver.egg-info/dependency_links.txt
-exoObserver.egg-info/entry_points.txt
-exoObserver.egg-info/pyproject.toml
-exoObserver.egg-info/top_level.txt

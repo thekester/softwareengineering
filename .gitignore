@@ -132,3 +132,4 @@ dist
 file_contents.txt
 
 __pycache__
+exoObserver.egg-info
