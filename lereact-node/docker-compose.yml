@@ -4,13 +4,15 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - ./server/data.csv:/app/data.csv  # Monte le fichier CSV dans le conteneur
+      - ./server/data.csv:/app/data.csv
     environment:
       NODE_ENV: production
+    command: ["npm", "start"]
 
   client:
     build: ./client
     ports:
       - "3000:80"
     depends_on:
-      - server  # Le client dépend du serveur uniquement
+      - server
+    command: ["npm", "run", "start"] # Assurez-vous que le script 'start' est correct

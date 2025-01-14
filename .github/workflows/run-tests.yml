@@ -1,4 +1,4 @@
-name: Build and Test
+name: CI/CD for React-Node
 
 on:
   push:
@@ -9,47 +9,46 @@ on:
       - '**'
 
 jobs:
-  frontend:
+  server:
     runs-on: ubuntu-24.04
+
     steps:
-    # Vérifie le code
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # Installe Node.js
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '23'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-    # Installe les dépendances et construit le front-end
-    - name: Install and Build Frontend
-      working-directory: ./katatel
-      run: |
-        npm install --legacy-peer-deps
-        npm run build
+      - name: Install dependencies for server
+        working-directory: ./server
+        run: npm install --legacy-peer-deps
 
-    # Vérifie la qualité du code avec des tests
-    - name: Run Frontend Tests
-      working-directory: ./katatel
-      run: npm test
+      - name: Run tests for server
+        working-directory: ./server
+        run: npm test
 
-  backend:
+  client:
     runs-on: ubuntu-24.04
+
     steps:
-    # Vérifie le code
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # Installe Node.js
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '23'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-    # Installe les dépendances et démarre les tests pour le back-end
-    - name: Install Backend Dependencies
-      working-directory: ./backend
-      run: |
-        npm install --legacy-peer-deps
-        npm test
+      - name: Install dependencies for client
+        working-directory: ./client
+        run: npm install --legacy-peer-deps
+
+      - name: Build client
+        working-directory: ./client
+        run: npm run build
+
+      - name: Run tests for client
+        working-directory: ./client
+        run: npm test
