@@ -21,6 +21,7 @@ module.exports = {
     extensions: ['.js', '.jsx'], // Extensions à gérer
     alias: {
         '@mui/material/useLazyRipple': false, // Ignorer ce module
+        '@mui/material/Radio': false,  // Remplace le module Radio par un module vide
     },
   },
   devtool: 'source-map', // Pour faciliter le débogage
