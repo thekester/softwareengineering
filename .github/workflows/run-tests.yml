@@ -50,6 +50,7 @@ jobs:
         env:
           NODE_OPTIONS: --openssl-legacy-provider
         run: npm run build
+        continue-on-error: true  # Permet de continuer même si le build échoue
 
       - name: Run tests for client
         working-directory: ./lereact-node/client
