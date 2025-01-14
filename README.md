@@ -48,6 +48,7 @@ This repository includes:
   - `Capteur.py`: A class that notifies observers when the speed changes.
   - `Subscriber.py`: A subscriber that reacts to speed changes.
   - `TableauDeBord.py`: Maintains a history of speed changes.
+  - `main.py`: Entry point demonstrating the pattern.
   - `test_exoObserver.py`: Unit tests for the Observer pattern implementation.
 
 ### `katatel`
@@ -118,6 +119,27 @@ npm test
    http://localhost:3001/api-docs
    ```
 
+### 5. Running `exoObserver`
+1. **Install the package in editable mode**:
+   ```bash
+   pip install -e .
+   ```
+2. **Run the program**:
+   ```bash
+   exoObserver
+   ```
+   Example output:
+   ```
+   Capteur: Vitesse changée à 50 km/h
+   Abonné 1 a reçu la vitesse : 50 km/h
+   Abonné 2 a reçu la vitesse : 50 km/h
+   TableauDeBord: Vitesse mise à jour à 50 km/h. Historique : ['50 km/h']
+   Capteur: Vitesse changée à 80 km/h
+   Abonné 1 a reçu la vitesse : 80 km/h
+   Abonné 2 a reçu la vitesse : 80 km/h
+   TableauDeBord: Vitesse mise à jour à 80 km/h. Historique : ['50 km/h', '80 km/h']
+   ```
+
 ---
 
 ## Improvements & Notes
@@ -126,6 +148,8 @@ npm test
 - Enhanced **CSV file handling** with robust error handling.
 - Configured **Docker** for seamless development and deployment.
 - Integrated **GitHub Actions** for continuous integration.
+- Improved Python Observer pattern to include robust testing and clear examples.
+- Added detailed Swagger documentation for API endpoints.
 
 ---
 
