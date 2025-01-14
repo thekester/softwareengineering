@@ -33,10 +33,10 @@ jobs:
       - name: Compile Java classes
         run: |
           mkdir -p javatp/target/classes
-          javac -d javatp/target/classes javatp/src/main/java/*.java
+          javac -d javatp/target/classes javatp/src/main/java/javatp/*.java
 
       - name: Run Java application
-        run: java -cp javatp/target/classes Felin
+        run: java -cp javatp/target/classes javatp.Main
 
       - name: Install dependencies and run tests
         run: mvn -f javatp/pom.xml clean verify

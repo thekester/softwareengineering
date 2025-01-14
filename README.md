@@ -1,4 +1,3 @@
-
 # Software Engineering - Practical Exercises
 
 Welcome to this repository showcasing my hands-on exercises from the **Software Engineering** course. This README explains the purpose of each folder and provides instructions for running and testing the projects.
@@ -21,7 +20,8 @@ This repository includes:
 - A **Node.js** backend handling CSV file operations and API functionalities.
 - A **React** frontend that validates phone numbers and processes CSV files.
 - Python implementations of design patterns and validation tools.
-- Comprehensive tests for backend, frontend, and Python scripts, including the use of **mock-based tests** for enhanced flexibility and robustness.
+- Java applications with Maven and Docker integration.
+- Comprehensive tests for backend, frontend, Python scripts, and Java programs.
 
 ---
 
@@ -32,6 +32,7 @@ This repository includes:
 ├── exoObserver          # Python Observer pattern example
 ├── katatel              # Node.js and Python phone number validation
 ├── lereact-node         # React and Node.js integration with Docker
+├── javatp               # Java applications with Maven and Docker
 ├── .github/workflows    # CI/CD workflows for GitHub Actions
 ├── requirements.txt     # Python dependencies
 ├── LICENSE              # License file
@@ -42,45 +43,35 @@ This repository includes:
 
 ## Folder Explanations
 
-### `exoObserver`
-- **Description**: Implements the Observer design pattern in Python.
+### `javatp`
+- **Description**: Implements and showcases Java programming concepts, including building and running Java projects with Docker and Maven.
 - **Highlights**:
-  - Demonstrates the classic Observer pattern using `Capteur`, `Subscriber`, and `TableauDeBord` classes.
-  - Integrates **mock-based tests** to simulate observer behaviors and ensure error resilience.
+  - Utilizes Maven for building and packaging Java applications.
+  - Includes Docker configuration for containerized Java application deployment.
 - **Main Files**:
-  - `Capteur.py`: A class that notifies observers when the speed changes.
-  - `Subscriber.py`: A subscriber that reacts to speed changes.
-  - `TableauDeBord.py`: Maintains a history of speed changes.
-  - `main.py`: Entry point demonstrating the pattern.
-  - `test_exoObserver.py`: Unit tests for core functionality.
-  - `test_exoObserver_mocks.py`: Mock tests for verifying notification behaviors and exception handling.
+  - `pom.xml`: Maven configuration file defining dependencies and plugins.
+  - `Dockerfile`: Docker setup for building and running the Java application.
+  - `Felin.java`, `Chat.java`, `Tigre.java`: Java files demonstrating inheritance and method overriding.
+  - `Main.java`: Entry point for the Java application.
 
-### `katatel`
-- **Description**: Focuses on phone number validation in Node.js and Python.
-- **Main Files**:
-  - `phoneNumberValidation.js`: Validates French phone numbers using regex.
-  - `phone_validator.py`: Python implementation of the same validation.
-  - `test_phone_number_validator.py`: Pytest-based tests for the Python validator.
-  - `phoneNumberValidation.test.js`: Jest-based tests for the Node.js validator.
-
-### `lereact-node`
-- **Description**: Combines React and Node.js for full-stack development.
-- **Subfolders**:
-  - `client`: React app to validate phone numbers and read CSV files.
-    - Includes Docker setup and tests with Jest.
-  - `server`: Node.js backend for CSV file handling and API endpoints.
-    - Swagger documentation for APIs.
-- **Main Files**:
-  - `docker-compose.yml`: Builds and runs the client and server together.
-  - `Dockerfile`: Separate Dockerfiles for client and server.
-  - `App.js`: React app entry point for UI functionality.
-  - `server.js`: Node.js app entry point for backend functionalities.
-
-### `.github/workflows`
-- **Description**: Contains CI/CD workflows for automation using GitHub Actions.
-- **Main Files**:
-  - `run-tests.yml`: Runs Jest tests for React and Node.js.
-  - `pytest.yml`: Runs Pytest for Python-based tests.
+- **Usage**:
+  1. Build and package the project with Maven:
+     ```bash
+     mvn clean package
+     ```
+  2. Compile the Java classes:
+     ```bash
+     javac -d target/classes src/main/java/*.java
+     ```
+  3. Run the application:
+     ```bash
+     java -cp target/classes javatp.Felin
+     ```
+  4. Build and run with Docker:
+     ```bash
+     docker build -t java-docker-app .
+     docker run --rm java-docker-app
+     ```
 
 ---
 
@@ -155,6 +146,7 @@ npm test
 - Improved Python Observer pattern to include robust testing and clear examples.
 - Added detailed Swagger documentation for API endpoints.
 - Introduced **modern testing practices** (e.g., mocks and error simulations) to ensure system reliability.
+- Introduced Java programming practices with Maven and Docker.
 
 ---
 
