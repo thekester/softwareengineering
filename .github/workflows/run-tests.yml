@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '23.5.0'
 
       - name: Install dependencies for server
         working-directory: ./lereact-node/server
@@ -39,7 +39,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '23.5.0'
 
       - name: Install dependencies for client
         working-directory: ./lereact-node/client
@@ -47,6 +47,8 @@ jobs:
 
       - name: Build client
         working-directory: ./lereact-node/client
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: npm run build
 
       - name: Run tests for client
