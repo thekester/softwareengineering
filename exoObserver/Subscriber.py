@@ -1,4 +1,4 @@
-from IObserverSpeed import IObserverSpeed
+from .IObserverSpeed import IObserverSpeed
 
 class Subscriber(IObserverSpeed):
     def __init__(self, name: str) -> None:

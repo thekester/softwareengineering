@@ -23,6 +23,10 @@ jobs:
       with:
         python-version: '3.10'
 
+    # Ajoutez le répertoire racine au PYTHONPATH
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+
     # Installe les dépendances Python
     - name: Install dependencies
       run: |

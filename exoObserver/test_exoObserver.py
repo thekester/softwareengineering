@@ -1,7 +1,8 @@
 import pytest
-from Capteur import Capteur
-from IObserverSpeed import IObserverSpeed
-from TableauDeBord import TableauDeBord
+
+from exoObserver.Capteur import Capteur
+from exoObserver.IObserverSpeed import IObserverSpeed
+from exoObserver.TableauDeBord import TableauDeBord
 
 # Observateur fictif pour les tests
 class DummyObserver(IObserverSpeed):

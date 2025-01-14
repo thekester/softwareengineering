@@ -1,5 +1,5 @@
 from typing import List
-from IObserverSpeed import IObserverSpeed
+from .IObserverSpeed import IObserverSpeed
 
 class TableauDeBord(IObserverSpeed):
     def __init__(self) -> None:

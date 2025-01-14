@@ -1,6 +1,6 @@
-from Capteur import Capteur
-from Subscriber import Subscriber
-from TableauDeBord import TableauDeBord
+from .Capteur import Capteur
+from .Subscriber import Subscriber
+from .TableauDeBord import TableauDeBord
 
 def main():
     capteur = Capteur()
