@@ -1,4 +1,3 @@
-
 # Software Engineering - Practical Exercises
 
 Welcome to this repository showcasing my hands-on exercises from the **Software Engineering** course. This README explains the purpose of each folder and provides instructions for running and testing the projects.
@@ -66,7 +65,7 @@ This repository includes:
      ```
   3. Run the application:
      ```bash
-     java -cp target/classes Felin
+     java -cp target/classes javatp.Felin
      ```
   4. Build and run with Docker:
      ```bash
