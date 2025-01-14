@@ -30,6 +30,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Compile Java classes
+        run: |
+          mkdir -p javatp/target/classes
+          javac -d javatp/target/classes javatp/src/main/java/*.java
+
+      - name: Run Java application
+        run: java -cp javatp/target/classes Felin
+
       - name: Install dependencies and run tests
         run: mvn -f javatp/pom.xml clean verify
 
