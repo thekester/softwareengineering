@@ -31,14 +31,14 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Install dependencies and run tests
-        run: mvn clean verify
+        run: mvn -f javatp/pom.xml clean verify
 
       - name: Package application
-        run: mvn package
+        run: mvn -f javatp/pom.xml package
 
       - name: Archive JAR file
         if: success()
         uses: actions/upload-artifact@v3
         with:
           name: app-jar
-          path: target/app-1.0-SNAPSHOT-jar-with-dependencies.jar
+          path: javatp/target/app-1.0-SNAPSHOT-jar-with-dependencies.jar
